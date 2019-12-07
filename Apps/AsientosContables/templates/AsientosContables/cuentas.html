@@ -1,0 +1,27 @@
+{% extends 'Home/index.html' %}
+
+{% block content %}
+    <h2> Cuentas </h2>
+    <table class="table mt-4 table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Monto de la cuenta</th>
+                    <th scope="col">Naturaleza</th>
+                    <th scope="col">Codigo auxiliar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cuenta in Cuentas %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ cuenta.Descripcion }}</td>
+                        <td>{{ cuenta.Monto }}</td>
+                        <td>{{ cuenta.NaturalezaCuenta }}</td>
+                        <td>{{ cuenta.CodigoAuxiliar }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+{% endblock %}

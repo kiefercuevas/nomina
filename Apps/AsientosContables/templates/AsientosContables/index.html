@@ -1,0 +1,48 @@
+{% extends 'Home/index.html' %}
+
+{% block content %}
+    <div class="row mt-2">
+        <div class="col-md-10">
+            <h2> Asientos contables</h2>
+        </div>
+        <div class="col-md-2">
+            <a href="{% url 'CrearAsiento'  %}" class="btn btn-success btn-block whiteText mb-0"> Crear Asiento</a>
+        </div>
+    </div>
+    <table class="table mt-2 table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Id auxiliar</th>
+                    <th scope="col">Empleado</th>
+                    <th scope="col">Moneda</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Registrar asiento</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for AsientoContable in AsientosContables %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ AsientoContable.Descripcion }}</td>
+                        <td>{{ AsientoContable.Estado }}</td>
+                        <td>{{ AsientoContable.IDauxiliar }}</td>
+                        <td>{{ AsientoContable.Empleado }}</td>
+                        <td>{{ AsientoContable.Moneda }}</td>
+                        <td>{{ AsientoContable.FechaAsiento }}</td>
+                        {% if AsientoContable.Estado == 'P' %}
+                            <td>
+                                <button onclick="RegisterAsiento(this)" class="btn btn-primary" data-id='{{ AsientoContable.id }}'>Registrar Asiento</button>
+                            </td>
+                        {% else %}
+                            <td>
+                                <button disabled class="btn btn-success">Registrado</button>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+{% endblock %}

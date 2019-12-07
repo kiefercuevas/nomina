@@ -1,0 +1,145 @@
+{% extends 'Home/index.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row mt-2">
+    <div class="col-md-1">
+        <h3 class="mt-2"> Transacciones</h3>
+    </div>
+    <div class="col-md-8 offset-md-1 d-md-inline-flex justify-content-end flex-row-reverse">
+        <input class="form-control mt-2 mx-2 inputWidth" type="search" id="searchTransactions" />
+        <input id="endDate" class="form-control mt-2 mx-2 inputWidth" type="date" id="searchTransactions" />
+        <input id="startDate" class="form-control mt-2 mx-2 inputWidth" type="date" id="searchTransactions" />
+    </div>
+    <div class="col-md-2 d-md-inline-flex justify-content-end p-2">
+        <button id="filterByDatesButton" class="btn btn-success whiteText mr-2">
+            <i class="far fa-calendar-alt"></i>
+        </button>
+
+        <button onclick="SelectAllUncheckedTransaction()" class="btn btn-secondary  whiteText mb-0">
+            <i class="far fa-check-square"></i>
+        </button>
+        <button onclick="RemoveSelectAllUncheckedTransaction()" class="btn btn-danger  whiteText mb-0 mx-2">
+            <i class="far fa-square"></i>
+        </button>
+        <button onclick="RegisterAsiento()" class="btn btn-primary whiteText mr-2">
+            <i class="fas fa-upload"></i>
+        </button>
+    </div>
+</div>
+<table id='transaccionTable' class="table mt-4 table-striped table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Empleado</th>
+            <th scope="col">Ingreso/Deduccion</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Monto</th>
+            <th scope="col">Registrar transaccion</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for Transaccion in Transacciones %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ Transaccion.Empleado }}</td>
+            <td>{{ Transaccion.IngresoDeduccion }}</td>
+            <td>{{ Transaccion.Fecha }}</td>
+
+            {% if Transaccion.DependeSalario %}
+            <td>{{ Transaccion.Monto }}%</td>
+            {% else %}
+            <td>{{ Transaccion.Monto }}</td>
+            {% endif %}
+
+
+
+            {% if Transaccion.IDtransacionRegistrada %}
+            <td>Id registrado: {{ Transaccion.IDtransacionRegistrada }}</td>
+            {% else %}
+            <td>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" data-id='{{ Transaccion.id }}' />
+                </div>
+            </td>
+            {% endif %}
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script src="{% static 'jquery/jquery-3.3.1.slim.min.js' %}"></script>
+<script>
+    $(function () {
+
+
+        var datatable = $('#transaccionTable').DataTable(
+            {
+                fixedHeader: true,
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "_START_ de _TOTAL_ Registros",
+                    "infoEmpty": "Mostrando 0 of 0 Registros",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Registros",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                },
+                searching: true,
+                dom: '<"row datatableDiv"<"float-left"B>>rtlp',
+                processing: true,
+                serverSide: false,
+            }
+        );
+
+
+        let searchInput = document.querySelector("#searchTransactions");
+        searchInput.addEventListener('keyup', () => {
+            datatable.search(searchInput.value).draw();
+        });
+
+        searchInput.addEventListener('search', () => {
+            datatable.search(searchInput.value).draw();
+        });
+
+        let btn = document.querySelector("#filterByDatesButton")
+            .addEventListener('click', () => {
+                $.fn.dataTable.ext.search.push(
+                    function (settings, data, dataIndex) {
+                        let startDate = document.querySelector("#startDate").value;
+                        let endDate = document.querySelector("#endDate").value;
+
+                        let newDateStart = new Date(startDate).getTime();
+                        let newDateEnd = new Date(endDate).getTime();
+
+                        let splittedDate = data[3].split(',');
+                        let currentDate = splittedDate[0].split('.').join("") + splittedDate[1];
+
+                        currentValue = new Date(currentDate).getTime();
+
+                        if (currentValue >= newDateStart && currentValue <= newDateEnd) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                );
+                datatable.draw();
+                $.fn.dataTable.ext.search.splice(0, $.fn.dataTable.ext.search.length);
+            });
+
+    });
+</script>
+{% endblock %}

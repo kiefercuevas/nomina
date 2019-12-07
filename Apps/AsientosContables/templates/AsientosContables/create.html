@@ -1,0 +1,61 @@
+{% extends 'Home/index.html' %}
+{% load static %}
+{% block content %}
+    <div class="row mt-2">
+            <div class="col-md-10">
+                <h2> Crear transacciones</h2>
+            </div>
+    </div>
+
+
+    <div class="mt-2">
+        <div class="form-group row">
+            <label for="Descripcion" class="col-sm-1 col-form-label boldLabel">Descripcion</label>
+            <div class="col-sm-5">
+                <input id="Descripcion" type="text" class="form-control">
+            </div>
+            
+
+            <label class="col-sm-1 col-form-label boldLabel">Moneda</label>
+            <div class="col-sm-2">
+                <select id='IDMoneda' class="form-control">
+                    <option value='1'>DOP</option>
+                    <option value='2'>DOLAR</option>
+                </select>
+            </div>
+
+            <label for="IDauxiliar" class="col-sm-1 col-form-label boldLabel">Id_Auxiliar</label>
+            <div class="col-sm-1">
+                <input value="2" min="1" id="IDauxiliar" type="number" class="form-control">
+            </div>
+            
+            
+            <div class="col-sm-1">
+                <button id="btnAdd" class="btn btn-primary btn-block whiteText mb-0"> +</a> 
+            </div>
+        </div>
+
+
+        <table class="table mt-1 table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Empleado</th>
+                        <th scope="col">Ingreso/deducion</th>
+                        <th scope="col">Monto</th>
+                        <!-- <th scope="col">Saldo de la cuenta</th> -->
+                    </tr>
+                </thead>
+                <tbody id="crearAsientoTable" >
+    
+                </tbody>
+        </table>
+    
+        <div class="mt-4">
+            <button id="btnSubmit" class="btn btn-success btn-block whiteText mb-0"> Crear transacciones</a>
+        </div>
+
+    </div>
+
+    <script src="{% static 'custom/js/AsientoContable.js' %}"></script>
+{% endblock %}
+

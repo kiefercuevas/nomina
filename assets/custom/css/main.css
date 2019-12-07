@@ -1,0 +1,19 @@
+.normalText{
+    font-size: 1.5em;
+}
+
+.nav-link:hover{
+    color: white !important;
+}
+
+.whiteText{
+    color: white !important;
+}
+
+.boldLabel{
+    font-weight:bold;
+}
+
+.inputWidth{
+    widows: 20px !important;
+}

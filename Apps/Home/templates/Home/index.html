@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'Datatables/DataTables-1.10.20/css/jquery.dataTables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'Datatables/DataTables-1.10.20/css/dataTables.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'Datatables/datatables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'custom/css/main.css' %}">
+    <title>Nomina</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand sticky-top navbar-dark bg-dark">
+        
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <a class="navbar-brand" href="{% url 'Home'  %}">Nomina</a>
+                    
+            <div class="collapse navbar-collapse" id="navbarToggler">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                   <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Home'  %}">Inicio</a>
+                    </li>
+
+                    <!--Asientos contables-->
+                    <li class="nav-item">
+                        <div class="dropdown show">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownAsientosContables" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Transacciones
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownAsientosContables">
+                                <a class="dropdown-item" href="{% url 'Transacciones'  %}">Transacciones</a>
+                                <a class="dropdown-item" href="{% url 'CrearAsiento'  %}">Crear Transaccion</a>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <!--Deduciones e ingresos -->
+                    <li class="nav-item">
+                        <div class="dropdown show">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownIngresosDeduciones" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Ingresos/Deduciones
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownIngresosDeduciones">
+                                <a class="dropdown-item" href="{% url 'Deduciones'  %}">Deduciones</a>
+                                <a class="dropdown-item" href="{% url 'Ingresos'  %}">Ingresos</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!--Empleados -->
+                    <li class="nav-item">
+                            <div class="dropdown show">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownEmpleados" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Empleados
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownEmpleados">
+                                    <a class="dropdown-item" href="{% url 'Empleados'  %}">Empleados</a>
+                                    <a class="dropdown-item" href="{% url 'Departamentos'  %}">Departamentos</a>
+                                    <a class="dropdown-item" href="{% url 'Puestos'  %}">Puestos</a>
+                                </div>
+                            </div>
+                        </li>
+
+                    
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="container p-3 pt-5">
+        {% block content %}
+        
+        {% endblock %}
+    </div>
+
+
+    <script src="{% static 'jquery/jquery-3.3.1.slim.min.js' %}"></script>
+    <script src="{% static 'popper/popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}" ></script>
+    <script src="{% static 'Datatables/DataTables-1.10.20/js/jquery.dataTables.min.js' %}" ></script>
+    <script src="{% static 'Datatables/DataTables-1.10.20/js/dataTables.bootstrap4.min.js' %}" ></script>
+    <script src="{% static 'Datatables/datatables.min.js' %}" ></script>
+    <script src="{% static 'fontawesome/js/all.js' %}"></script>
+    <script src="{% static 'custom/js/main.js' %}" ></script>
+</body>
+</html>
